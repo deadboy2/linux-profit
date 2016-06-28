@@ -4,6 +4,7 @@ namespace App;
 
 class DB
 {
+    use Singleton;
     protected $conn;
 
     function __construct()
