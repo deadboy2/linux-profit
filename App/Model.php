@@ -11,4 +11,10 @@ abstract class Model
         $db = DB::getInstance();
         return $db->query('select * from ' . static::TABLE, [], static::class);
     }
+
+    public static function findById($id)
+    {
+        $db = DB::getInstance();
+        return $db->query('select * from ' . static::TABLE . ' where id=' . $id, [], static::class)[0];
+    }
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - profit@localhost" uuid="e35b5e0b-e751-4b9f-82b7-a9e119de2709">
+    <database-info product="MySQL" version="5.5.49-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
+      <schema id="1" name="profit"/>
+      <table id="2" parent="1" name="articles"/>
+      <table id="3" parent="1" name="authors"/>
+      <column id="4" parent="2" name="id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+      </column>
+      <column id="5" parent="2" name="title">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="6" parent="2" name="text">
+        <data-type>text</data-type>
+      </column>
+      <column id="7" parent="2" name="author_id">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <index id="8" parent="2" name="id">
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="9" parent="2" name="id">
+        <columns>id</columns>
+        <underlying-index>id</underlying-index>
+      </key>
+      <column id="10" parent="3" name="id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned</data-type>
+      </column>
+      <column id="11" parent="3" name="name">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="12" parent="3" name="surname">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <index id="13" parent="3" name="id">
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="14" parent="3" name="id">
+        <columns>id</columns>
+        <underlying-index>id</underlying-index>
+      </key>
+    </database-model>
+  </data-source>
+</component>
