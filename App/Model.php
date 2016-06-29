@@ -5,6 +5,7 @@ namespace App;
 abstract class Model
 {
     const TABLE = '';
+    public $id;
 
     public static function findAll()
     {
@@ -17,4 +18,83 @@ abstract class Model
         $db = DB::getInstance();
         return $db->query('select * from ' . static::TABLE . ' where id=' . $id, [], static::class)[0];
     }
+
+    public function isNew()
+    {
+        return empty($this->id);
+    }
+
+    public function insert()
+    {
+        if (!$this->isNew()) {
+            return;
+        }
+
+        $columns = [];
+        $values = [];
+
+        foreach ($this as $k => $v) {
+            if ('id' == $k) {
+                continue;
+            }
+            $columns[] = $k;
+            $values[':' . $k] = $v;
+        }
+
+        $sql = 'insert into ' . static::TABLE . ' (' . implode(',', $columns) . ') values (' . implode(',', array_keys($values)) . ')';
+        $db = DB::getInstance();
+        $db->execute($sql, $values);
+    }
+
+    public function update()
+    {
+        if ($this->isNew()) {
+            return;
+        }
+
+        $columns = [];
+        $values = [];
+        $id = '';
+
+        foreach ($this as $k => $v) {
+            if ('id' == $k) {
+                $id = $v;
+            }
+            $columns[] = $k . '=:' . $k;
+            $values[':' . $k] = $v;
+        }
+
+        $sql = 'update ' . static::TABLE . ' set ' . implode(',', $columns) . ' where id=' . $id;
+        $db = DB::getInstance();
+        $db->execute($sql, $values);
+    }
+
+    public function save()
+    {
+        if ($this->isNew()) {
+            $this->insert();
+        } else {
+            $this->update();
+        }
+    }
+
+    public function delete()
+    {
+        if ($this->isNew()) {
+            return;
+        }
+
+        $id = '';
+
+        foreach ($this as $k => $v) {
+            if ('id' == $k) {
+                $id = (int)$v;
+            }
+        }
+
+        $sql = 'delete from ' . static::TABLE . ' where id=:id';
+        $db = DB::getInstance();
+        $db->execute($sql, [':id' => $id]);
+    }
+
 }
